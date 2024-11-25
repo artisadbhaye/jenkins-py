@@ -6,16 +6,20 @@ pipeline {
 	stages {
 		stage('clone repo') {
 			steps {
-				try {
-					git branch: 'master', url: GIT_REPOSITORY_URL	
-				} catch(Exception e) {
-					echo "Failed to clone repo ${e.message}"
-					echo "Failed to clone repo"
+				script {
+					try {
+                                        	git branch: 'master', url: GIT_REPOSITORY_URL
+                               		 } catch(Exception e) {
+                                       		echo "Failed to clone repo ${e.message}"
+                                        	echo "Failed to clone repo"
+                               		 }
 				}
+
 			}
 		}
 		stage('execute file') {
 			steps {
+				script {
 				try {
 					sh """
 					python3 hello.py
@@ -23,6 +27,7 @@ pipeline {
 				} catch(Exception e) {
 					echo "Could not run sorry: ${e.message}"
 					echo "Could not run"
+				}
 				}
 			}
 		}
