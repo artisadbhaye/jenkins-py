@@ -6,9 +6,9 @@ pipeline {
 	stages {
 		stage('clone repo') {
 			steps {
-				try{
+				try {
 					git branch: 'master', url: GIT_REPOSITORY_URL	
-				}catch(Exception e){
+				} catch(Exception e) {
 					echo "Failed to clone repo ${e.message}"
 					echo "Failed to clone repo"
 				}
@@ -16,11 +16,11 @@ pipeline {
 		}
 		stage('execute file') {
 			steps {
-				try{
+				try {
 					sh """
 					python3 hello.py
 					"""
-				}catch(Exception e){
+				} catch(Exception e) {
 					echo "Could not run sorry: ${e.message}"
 					echo "Could not run"
 				}
